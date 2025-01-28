@@ -1,46 +1,59 @@
-<h1 class="d-flex justify-content-center w-100">WORDLE</h1>
-<div class="d-flex flex-column align-items-center w-auto">
+<div class="wrapper" fxLayout="column" fxLayoutAlign="space-evenly center">
+  <h1 class="">WORDLE</h1>
   <h2 *ngIf="errorMsg">{{ this.errorMsg }}</h2>
 
-  <div class="d-flex flex-row p-2" *ngFor="let guess of guesses">
-    <div *ngFor="let cell of guess">
-      <button mat-raised-button [ngClass]="cell.color">
-        {{ cell.letter }}
-      </button>
+  <div class="board-all">
+    <div class="board-wrapper">
+      <div class="board">
+        <div class="guess-line" *ngFor="let guess of guesses">
+          <div *ngFor="let cell of guess">
+            <button
+              class="letter-box"
+              [ngClass]="[cell.letter ? 'bounce' : '', cell.color, 'cell']"
+            >
+              {{ cell.letter }}
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="d-flex">
-    <button
-      mat-raised-button
-      *ngFor="let letter of row1; let i = index"
-      (click)="addLetter(letter)"
-    >
-      {{ letter }}
-    </button>
-  </div>
+  <div class="keyboard-wrapper">
+    <div class="keyboard">
+      <div class="keyboard-row">
+        <button
+          class="keyboard-button"
+          *ngFor="let letter of row1; let i = index"
+          (click)="addLetter(letter)"
+        >
+          {{ letter }}
+        </button>
+      </div>
 
-  <div class="d-flex">
-    <button
-      mat-raised-button
-      *ngFor="let letter of row2; let i = index"
-      (click)="addLetter(letter)"
-    >
-      {{ letter }}
-    </button>
-  </div>
+      <div class="keyboard-row">
+        <button
+          class="keyboard-button"
+          *ngFor="let letter of row2; let i = index"
+          (click)="addLetter(letter)"
+        >
+          {{ letter }}
+        </button>
+      </div>
 
-  <div class="d-flex">
-    <button mat-raised-button (click)="removeLetter()">
-      <mat-icon>backspace</mat-icon>
-    </button>
-    <button
-      mat-raised-button
-      *ngFor="let letter of row3; let i = index"
-      (click)="addLetter(letter)"
-    >
-      {{ letter }}
-    </button>
-    <button mat-raised-button (click)="enter()">Enter</button>
+      <div class="d-flex">
+        <button (click)="removeLetter()" class="keyboard-button">
+          <mat-icon style="overflow: visible">backspace</mat-icon>
+        </button>
+        <button
+          class="keyboard-button"
+          *ngFor="let letter of row3; let i = index"
+          (click)="addLetter(letter)"
+        >
+          {{ letter }}
+        </button>
+        <button class="keyboard-button" (click)="enter()">Enter</button>
+      </div>
+    </div>
   </div>
 </div>
