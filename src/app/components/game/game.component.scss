@@ -1,0 +1,76 @@
+@import "/src/styles.scss";
+
+.focusCell {
+  border: 2px solid blue !important;
+}
+
+.wrapper {
+  align-items: center;
+  flex-direction: column;
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  height: 80%;
+
+  @media (max-width: $breakpoint-sm) {
+    height: 90%;
+  }
+  @media (max-width: $breakpoint-lg) {
+    height: 80%;
+  }
+  @media (max-width: $breakpoint-xl) {
+    height: 60%;
+  }
+}
+
+.board-all {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.board-wrapper {
+  position: relative;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  max-width: 350px;
+  max-height: 305px;
+  justify-content: center;
+  align-items: center;
+
+  @media (max-width: $breakpoint-sm) {
+    max-width: 255px;
+    max-height: 305px;
+  }
+
+  @media (max-width: $breakpoint-md) {
+    max-width: 270px;
+    max-height: 320px;
+  }
+  @media (max-width: $breakpoint-lg) {
+    max-width: 300px;
+    max-height: 350px;
+  }
+  @media (max-width: $breakpoint-xl) {
+    max-width: 300px;
+    max-height: 350px;
+  }
+}
+
+.keyboard-wrapper {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 32rem;
+  padding: 5px;
+}
+
+.keyboard-down {
+  display: flex;
+}

@@ -1,0 +1,5 @@
+<div class="board">
+  <div class="guess-line" *ngFor="let guess of guesses">
+    <app-letter-box *ngFor="let cell of guess" [cell]="cell"></app-letter-box>
+  </div>
+</div>

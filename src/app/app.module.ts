@@ -6,9 +6,13 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { LetterBoxComponent } from './components/letter-box/letter-box.component';
+import { BoardComponent } from './components/board/board.component';
+import { KeyboardComponent } from './components/keyboard/keyboard.component';
+import { GameComponent } from './components/game/game.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LetterBoxComponent, BoardComponent, KeyboardComponent, GameComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -1,0 +1,15 @@
+.board {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  grid-template-rows: repeat(5, 1fr);
+  gap: 4px;
+  padding: 5px;
+}
+
+.guess-line {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.25rem;
+  display: grid;
+  flex-direction: row;
+}

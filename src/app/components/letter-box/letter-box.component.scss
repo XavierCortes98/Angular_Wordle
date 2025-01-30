@@ -1,0 +1,85 @@
+@import "/src/styles.scss";
+@keyframes bounce {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes spin3D {
+  0% {
+    transform: rotateY(0deg);
+    background-color: transparent;
+  }
+  50% {
+    transform: rotateY(90deg);
+    background-color: transparent;
+  }
+  100% {
+    transform: rotateY(0deg);
+  }
+}
+
+.bounce {
+  animation: bounce 0.3s ease;
+}
+
+.focusCell {
+  border: 2px solid #94c7f3 !important;
+}
+
+.letter-box {
+  display: flex;
+  aspect-ratio: 1/1;
+  align-items: center;
+  justify-content: center;
+  width: 62px;
+  max-width: 62.5px;
+  height: 62px;
+  border: 2px solid rgb(224, 224, 224);
+  background-color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  user-select: none;
+  cursor: default;
+  font-size: 1.8rem;
+
+  @media (max-width: $breakpoint-sm) {
+    width: 45px;
+    height: 45px;
+  }
+  @media (max-width: $breakpoint-md) {
+    width: 55px;
+    height: 55px;
+  }
+  @media (max-width: $breakpoint-lg) {
+    width: 60px;
+    height: 60px;
+  }
+  @media (max-width: $breakpoint-xl) {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+.correctLetter {
+  animation: spin3D 0.5s ease forwards;
+  background-color: #43a047;
+  display: inline-block;
+  transform-style: preserve-3d;
+}
+
+.absentLetter {
+  animation: spin3D 0.5s ease forwards;
+  background-color: #757575 !important;
+}
+
+.presentLetter {
+  animation: spin3D 0.5s ease forwards;
+  background-color: #e4a81d !important;
+}
