@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, DoCheck, OnDestroy } from '@angular/core';
 import { Cell } from 'src/app/models/cell.model';
 import wordList from 'an-array-of-spanish-words';
 import { StoreInfoService } from '../services/store-info.service';
@@ -104,8 +104,13 @@ export class GameComponent {
     }
 
     this.errorMsg = '';
-    this.guesses[this.attemptIndex] = this.validateAnswer();
-    console.log('guesses', this.guesses);
+
+    // Copia la validación antes de asignarla
+    const newRow = [...this.validateAnswer()]; // 🔥 Copia antes de asignar
+    this.guesses[this.attemptIndex] = newRow;
+    this.attemptIndex++;
+
+    this.guessColumn = 0;
     this.storeInfoService.saveGuessesToCache(this.guesses);
   }
 
@@ -153,8 +158,6 @@ export class GameComponent {
       }
     });
 
-    this.attemptIndex++;
-    console.log('intento: ', this.attemptIndex);
     this.guessColumn = 0;
 
     if (this.attemptIndex >= 5) {
@@ -168,9 +171,9 @@ export class GameComponent {
   clear() {
     this.attemptIndex = 0;
     this.guessColumn = 0;
-
     this.endGame = false;
     this.initMatrix();
     this.storeInfoService.clear();
+    (document.activeElement as HTMLElement)?.blur();
   }
 }

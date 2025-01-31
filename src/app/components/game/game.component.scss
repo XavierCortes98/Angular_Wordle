@@ -4,6 +4,13 @@
   border: 2px solid blue !important;
 }
 
+.button {
+  :focus {
+    background-color: red;
+    border: 1px solid red;
+  }
+}
+
 .wrapper {
   align-items: center;
   flex-direction: column;
