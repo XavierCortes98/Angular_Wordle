@@ -49,21 +49,24 @@
   cursor: default;
   font-size: 1.8rem;
 
-  @media (max-width: $breakpoint-sm) {
-    width: 45px;
-    height: 45px;
+  @media (max-width: $breakpoint-xl) {
+    width: 60px;
+    height: 60px;
   }
-  @media (max-width: $breakpoint-md) {
-    width: 55px;
-    height: 55px;
-  }
+
   @media (max-width: $breakpoint-lg) {
     width: 60px;
     height: 60px;
   }
-  @media (max-width: $breakpoint-xl) {
-    width: 60px;
-    height: 60px;
+
+  @media (max-width: $breakpoint-md) {
+    width: 55px;
+    height: 55px;
+  }
+
+  @media (max-width: $breakpoint-sm) {
+    width: 45px;
+    height: 45px;
   }
 }
 
