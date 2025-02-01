@@ -35,11 +35,9 @@
 
 .letter-box {
   display: flex;
-  aspect-ratio: 1/1;
   align-items: center;
   justify-content: center;
   width: 62px;
-  max-width: 62.5px;
   height: 62px;
   border: 2px solid rgb(224, 224, 224);
   background-color: white;
@@ -48,26 +46,6 @@
   user-select: none;
   cursor: default;
   font-size: 1.8rem;
-
-  @media (max-width: $breakpoint-xl) {
-    width: 60px;
-    height: 60px;
-  }
-
-  @media (max-width: $breakpoint-lg) {
-    width: 60px;
-    height: 60px;
-  }
-
-  @media (max-width: $breakpoint-md) {
-    width: 55px;
-    height: 55px;
-  }
-
-  @media (max-width: $breakpoint-sm) {
-    width: 45px;
-    height: 45px;
-  }
 }
 
 .correctLetter {

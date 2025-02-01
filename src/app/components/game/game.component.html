@@ -1,28 +1,32 @@
 <div class="wrapper">
-  <h1 class="">WORDLE</h1>
-  <button
-    mat-raised-button
-    class="button"
-    *ngIf="this.solution.endGame"
-    (click)="clear()"
-    tabIndex="-1"
-  >
-    New word
-  </button>
-  <h2 *ngIf="headMsg">{{ this.headMsg }}</h2>
-
-  <div class="board-all">
-    <div class="board-wrapper">
-      <app-board [guesses]="guesses"></app-board>
-    </div>
+  <div>
+    <h1 class="">WORDLE</h1>
+    <button
+      mat-raised-button
+      class="button"
+      *ngIf="this.solution.endGame"
+      (click)="clear()"
+      tabIndex="-1"
+    >
+      New word
+    </button>
   </div>
-
-  <app-keyboard
-    class="keyboard-wrapper"
-    [keyboardColors]="keyboardColors"
-    (letterClicked)="addLetter($event)"
-    (enterClicked)="enter()"
-    (backspaceClicked)="removeLetter()"
-  >
-  </app-keyboard>
+  <div class="container">
+    <h2 *ngIf="headMsg">{{ this.headMsg }}</h2>
+  
+    <div class="board-all">
+      <div class="board-wrapper mb-3">
+        <app-board [guesses]="guesses"></app-board>
+      </div>
+    </div>
+  
+    <app-keyboard
+      class="keyboard-wrapper"
+      [keyboardColors]="keyboardColors"
+      (letterClicked)="addLetter($event)"
+      (enterClicked)="enter()"
+      (backspaceClicked)="removeLetter()"
+    >
+    </app-keyboard>
+  </div>
 </div>
