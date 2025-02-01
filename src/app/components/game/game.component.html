@@ -1,10 +1,15 @@
 <div class="wrapper">
   <h1 class="">WORDLE</h1>
-  <h1>{{ attemptIndex }}</h1>
-  <button mat-raised-button class="button" (click)="clear()" tabIndex="-1">
+  <button
+    mat-raised-button
+    class="button"
+    *ngIf="this.solution.endGame"
+    (click)="clear()"
+    tabIndex="-1"
+  >
     New word
   </button>
-  <h2 *ngIf="errorMsg">{{ this.errorMsg }}</h2>
+  <h2 *ngIf="headMsg">{{ this.headMsg }}</h2>
 
   <div class="board-all">
     <div class="board-wrapper">
@@ -14,6 +19,7 @@
 
   <app-keyboard
     class="keyboard-wrapper"
+    [keyboardColors]="keyboardColors"
     (letterClicked)="addLetter($event)"
     (enterClicked)="enter()"
     (backspaceClicked)="removeLetter()"

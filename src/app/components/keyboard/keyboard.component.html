@@ -1,21 +1,23 @@
 <div class="keyboard">
   <div class="keyboard-row">
     <button
-      *ngFor="let letter of row1"
+      *ngFor="let cell of row1"
       class="keyboard-button"
-      (click)="addLetter(letter)"
+      [ngClass]="cell.color"
+      (click)="addLetter(cell.letter)"
     >
-      {{ letter }}
+      {{ cell.letter }}
     </button>
   </div>
 
   <div class="keyboard-row">
     <button
-      *ngFor="let letter of row2"
+      *ngFor="let cell of row2"
       class="keyboard-button"
-      (click)="addLetter(letter)"
+      [ngClass]="cell.color"
+      (click)="addLetter(cell.letter)"
     >
-      {{ letter }}
+      {{ cell.letter }}
     </button>
   </div>
 
@@ -25,11 +27,12 @@
     </button>
 
     <button
-      *ngFor="let letter of row3"
+      *ngFor="let cell of row3"
       class="keyboard-button"
-      (click)="addLetter(letter)"
+      [ngClass]="cell.color"
+      (click)="addLetter(cell.letter)"
     >
-      {{ letter }}
+      {{ cell.letter }}
     </button>
 
     <button class="keyboard-button" (click)="enter()">Enter</button>

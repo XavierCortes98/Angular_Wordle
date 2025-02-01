@@ -39,3 +39,15 @@
   border-radius: 5px;
   transition: transform 0.1s ease, box-shadow 0.1s ease; /* Animación suave para el efecto de hundimiento */
 }
+
+.correctLetter {
+  background-color: #43a047;
+}
+
+.absentLetter {
+  background-color: #757575 !important;
+}
+
+.presentLetter {
+  background-color: #e4a81d !important;
+}

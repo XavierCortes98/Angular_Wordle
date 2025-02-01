@@ -1,36 +1,72 @@
-import { AfterViewInit, Component, DoCheck, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { Cell } from 'src/app/models/cell.model';
-import wordList from 'an-array-of-spanish-words';
-import { StoreInfoService } from '../services/store-info.service';
+import { StoreInfoService } from '../../services/store-info.service';
+import { WordService } from 'src/app/services/word.service';
+import { Solution } from 'src/app/models/solution.model';
+import { lastValueFrom } from 'rxjs';
+import { MAX_GUESSES, WORD_COUNT } from 'src/app/constants';
+
 @Component({
   selector: 'app-game-component',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss'],
 })
 export class GameComponent {
-  private words: Set<string>;
-  private endGame = false;
-
-  MAX_GUESSES = 5;
-  title = 'wordle';
-  wordSolution = 'Arroz';
-  errorMsg = '';
+  solution: Solution = { solutionWord: '', endGame: false };
+  headMsg = '';
 
   attemptIndex = 0;
   guessColumn = 0;
-  wordCount = 5;
   guesses: Cell[][] = [];
 
-  constructor(private storeInfoService: StoreInfoService) {
-    this.words = new Set(wordList);
+  keyboardColors: Cell[] = [];
 
+  constructor(
+    private storeInfoService: StoreInfoService,
+    private wordService: WordService
+  ) {
+    this.initGame();
+  }
+
+  initGame() {
+    const storedSolution = this.storeInfoService.gameState;
     const cachedGuesses = this.storeInfoService.guessesFromCache;
-    if (cachedGuesses) {
-      this.guesses = cachedGuesses;
+    const cachedKeyboardColors = this.storeInfoService.keyboardStatus;
+
+    if (storedSolution?.solutionWord) {
+      this.solution = storedSolution;
+      this.guesses = cachedGuesses || this.createEmptyBoard();
       this.attemptIndex = this.filledRows;
+      this.keyboardColors = cachedKeyboardColors || [];
     } else {
-      this.initMatrix();
+      this.startNewGame();
     }
+  }
+
+  startNewGame() {
+    this.solution = { solutionWord: '', endGame: false };
+    this.keyboardColors = [];
+    this.attemptIndex = 0;
+    this.guessColumn = 0;
+    this.headMsg = '';
+    this.setNewWord();
+    this.storeInfoService.clear();
+    this.guesses = this.createEmptyBoard();
+  }
+
+  private setNewWord() {
+    this.wordService.getWord().subscribe((word) => {
+      this.solution.solutionWord = word;
+      this.solution.endGame = false;
+      this.storeInfoService.saveGameState(this.solution);
+      console.log('solution: ', this.solution);
+    });
+  }
+
+  private createEmptyBoard(): Cell[][] {
+    return Array.from({ length: MAX_GUESSES }, () =>
+      Array.from({ length: WORD_COUNT }, () => ({ letter: '', color: '' }))
+    );
   }
 
   get currentWord(): string {
@@ -42,19 +78,8 @@ export class GameComponent {
       .length;
   }
 
-  initMatrix() {
-    this.guesses = [];
-    for (let i = 0; i < this.MAX_GUESSES; i++) {
-      const row: Cell[] = [];
-      for (let j = 0; j < this.wordCount; j++) {
-        row.push({ color: '', letter: '' });
-      }
-      this.guesses.push(row);
-    }
-  }
-
   addLetter(letter: string) {
-    if (this.guessColumn >= this.wordCount || this.endGame) {
+    if (this.guessColumn >= WORD_COUNT || this.solution.endGame) {
       return;
     }
 
@@ -66,17 +91,17 @@ export class GameComponent {
     };
 
     this.guessColumn++;
-    if (this.guessColumn < this.wordCount) {
+    if (this.guessColumn < WORD_COUNT) {
       this.guesses[this.attemptIndex][this.guessColumn].color = 'focusCell';
     }
   }
 
   removeLetter() {
-    if (this.endGame) {
+    if (this.solution.endGame) {
       return;
     }
 
-    if (this.guessColumn < this.wordCount) {
+    if (this.guessColumn < WORD_COUNT) {
       this.guesses[this.attemptIndex][this.guessColumn].color = '';
     }
 
@@ -87,35 +112,36 @@ export class GameComponent {
     };
   }
 
-  enter() {
-    if (this.endGame) {
+  async enter() {
+    if (this.solution.endGame) {
       console.log('endgame');
       return;
     }
 
-    if (this.guessColumn < this.wordCount) {
-      this.errorMsg = 'Too short';
+    if (this.guessColumn < WORD_COUNT) {
       return;
     }
 
-    if (!this.validateWord(this.currentWord.toLowerCase())) {
-      this.errorMsg = 'Word not exists';
+    const isValid = await this.validateWord(this.currentWord.toLowerCase());
+
+    if (!isValid) {
+      this.headMsg = 'Word not exists';
       return;
     }
 
-    this.errorMsg = '';
+    this.headMsg = '';
 
-    // Copia la validación antes de asignarla
-    const newRow = [...this.validateAnswer()]; // 🔥 Copia antes de asignar
+    const newRow = [...this.validateAnswer()];
     this.guesses[this.attemptIndex] = newRow;
     this.attemptIndex++;
 
     this.guessColumn = 0;
     this.storeInfoService.saveGuessesToCache(this.guesses);
+    this.storeInfoService.saveKeyboardStatus(this.keyboardColors);
   }
 
-  validateWord(word: string) {
-    return this.words.has(word);
+  validateWord(word: string): Promise<boolean> {
+    return lastValueFrom(this.wordService.checkWord(word));
   }
 
   validateAnswer(): Cell[] {
@@ -124,12 +150,9 @@ export class GameComponent {
       .join('')
       .toUpperCase()
       .split('');
-
-    const solutionArr = this.wordSolution.toUpperCase().split('');
+    const solutionArr = this.solution.solutionWord.toUpperCase().split('');
     const solutionCopy = [...solutionArr];
-
     const result: Cell[] = [];
-
     let points = 0;
 
     guessArr.forEach((letter, index) => {
@@ -142,10 +165,10 @@ export class GameComponent {
       }
     });
 
-    if (points === 5) {
-      this.endGame = true;
-      this.storeInfoService.setGameState(true);
-      this.errorMsg = 'Has ganado';
+    if (points === WORD_COUNT) {
+      this.solution.endGame = true;
+      this.storeInfoService.saveGameState(this.solution);
+      this.headMsg = 'Has ganado';
     }
 
     result.forEach((entry, index) => {
@@ -160,20 +183,17 @@ export class GameComponent {
 
     this.guessColumn = 0;
 
-    if (this.attemptIndex >= 5) {
-      this.endGame = true;
-      this.errorMsg = 'you lose';
-      this.storeInfoService.setGameState(true);
+    if (this.attemptIndex >= MAX_GUESSES - 1) {
+      this.solution.endGame = true;
+      this.headMsg =
+        'Has perdido, la solucion era: ' + this.solution.solutionWord;
+      this.storeInfoService.saveGameState(this.solution);
     }
+    this.keyboardColors = result;
     return result;
   }
 
   clear() {
-    this.attemptIndex = 0;
-    this.guessColumn = 0;
-    this.endGame = false;
-    this.initMatrix();
-    this.storeInfoService.clear();
-    (document.activeElement as HTMLElement)?.blur();
+    this.startNewGame();
   }
 }

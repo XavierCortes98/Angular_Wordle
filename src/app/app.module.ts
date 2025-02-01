@@ -10,15 +10,23 @@ import { LetterBoxComponent } from './components/letter-box/letter-box.component
 import { BoardComponent } from './components/board/board.component';
 import { KeyboardComponent } from './components/keyboard/keyboard.component';
 import { GameComponent } from './components/game/game.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [AppComponent, LetterBoxComponent, BoardComponent, KeyboardComponent, GameComponent],
+  declarations: [
+    AppComponent,
+    LetterBoxComponent,
+    BoardComponent,
+    KeyboardComponent,
+    GameComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
     MatIconModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
