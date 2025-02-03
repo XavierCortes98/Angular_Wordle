@@ -12,7 +12,7 @@ import { MAX_GUESSES, WORD_COUNT } from 'src/app/constants';
   styleUrls: ['./game.component.scss'],
 })
 export class GameComponent {
-  solution: Solution = { solutionWord: '', endGame: false };
+  solution: Solution = { solutionWord: '', endGame: '' };
   headMsg = '';
 
   attemptIndex = 0;
@@ -44,7 +44,7 @@ export class GameComponent {
   }
 
   startNewGame() {
-    this.solution = { solutionWord: '', endGame: false };
+    this.solution = { solutionWord: '', endGame: '' };
     this.keyboardColors = [];
     this.attemptIndex = 0;
     this.guessColumn = 0;
@@ -57,9 +57,8 @@ export class GameComponent {
   private setNewWord() {
     this.wordService.getWord().subscribe((word) => {
       this.solution.solutionWord = word;
-      this.solution.endGame = false;
+      this.solution.endGame = '';
       this.storeInfoService.saveGameState(this.solution);
-      console.log('solution: ', this.solution);
     });
   }
 
@@ -114,11 +113,11 @@ export class GameComponent {
 
   async enter() {
     if (this.solution.endGame) {
-      console.log('endgame');
       return;
     }
 
     if (this.guessColumn < WORD_COUNT) {
+      this.headMsg = 'Palabra demasiado corta';
       return;
     }
 
@@ -166,9 +165,8 @@ export class GameComponent {
     });
 
     if (points === WORD_COUNT) {
-      this.solution.endGame = true;
+      this.solution.endGame = 'Winner';
       this.storeInfoService.saveGameState(this.solution);
-      this.headMsg = 'Has ganado';
     }
 
     result.forEach((entry, index) => {
@@ -184,8 +182,7 @@ export class GameComponent {
     this.guessColumn = 0;
 
     if (this.attemptIndex >= MAX_GUESSES - 1) {
-      this.solution.endGame = true;
-      this.headMsg =
+      this.solution.endGame =
         'Has perdido, la solucion era: ' + this.solution.solutionWord;
       this.storeInfoService.saveGameState(this.solution);
     }

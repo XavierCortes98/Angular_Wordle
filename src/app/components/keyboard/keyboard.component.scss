@@ -12,10 +12,8 @@
   gap: 0.25rem;
   display: grid;
   :hover {
-    box-shadow: inset 1px 3px 2px rgba(0, 0, 0, 0.2); /* El botón parece hundirse */
-    transform: translateY(
-      2px
-    ); /* El botón se mueve ligeramente hacia abajo para simular que se hunde */
+    box-shadow: inset 1px 3px 2px rgba(0, 0, 0, 0.2);
+    transform: translateY(2px);
   }
 }
 

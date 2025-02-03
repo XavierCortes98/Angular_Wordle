@@ -12,14 +12,21 @@
     </button>
   </div>
   <div class="container">
-    <h2 *ngIf="headMsg">{{ this.headMsg }}</h2>
-  
+    <div class="d-flex w-100 gap-3 justify-content-center">
+      <h2 *ngIf="headMsg" class="d-flex">
+        {{ headMsg }}
+      </h2>
+      <h2 *ngIf="solution" class="d-flex">
+        {{ solution.endGame }}
+      </h2>
+    </div>
+
     <div class="board-all">
       <div class="board-wrapper mb-3">
         <app-board [guesses]="guesses"></app-board>
       </div>
     </div>
-  
+
     <app-keyboard
       class="keyboard-wrapper"
       [keyboardColors]="keyboardColors"

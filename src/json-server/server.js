@@ -8,14 +8,10 @@ const PORT = 3000;
 app.use(cors());
 app.use(express.json());
 
-/**
- * Obtiene una palabra aleatoria de 5 letras
- * @returns {string | null}
- */
 const getRandomFiveLetterWord = () => {
-  const fiveLetterWords = words.filter((word) => word.length === 5); // 🔹 Corrección aquí
-  if (fiveLetterWords.length === 0) return null; // 🔹 Corrección aquí
-  return fiveLetterWords[Math.floor(Math.random() * fiveLetterWords.length)]; // 🔹 Corrección aquí
+  const fiveLetterWords = words.filter((word) => word.length === 5);
+  if (fiveLetterWords.length === 0) return null;
+  return fiveLetterWords[Math.floor(Math.random() * fiveLetterWords.length)];
 };
 
 app.get("/getWord", (req, res) => {

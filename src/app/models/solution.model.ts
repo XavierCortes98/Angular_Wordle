@@ -1,4 +1,4 @@
 export interface Solution {
   solutionWord: string;
-  endGame: boolean;
+  endGame: string;
 }
