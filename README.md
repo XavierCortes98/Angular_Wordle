@@ -1,27 +1,57 @@
-# Wordle
+# Angular Wordle
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.7.
+Este es un clon del popular juego **Wordle**, desarrollado con **Angular**. 
 
-## Development server
+## 🚀 Características
+- Interfaz interactiva y fácil de usar
+- Implementado en Angular para una experiencia fluida
+- Manejo de estado eficiente
+- Validación de palabras
+- Diseño responsive
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 🛠 Tecnologías Utilizadas
+- **Angular** - Framework frontend
+- **TypeScript** - Lenguaje principal
+- **CSS** - Estilos personalizados
 
-## Code scaffolding
+## 📦 Instalación
+Sigue estos pasos para instalar y ejecutar el proyecto en tu máquina local:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### 1️⃣ Clonar el repositorio
+```sh
+git clone https://github.com/XavierCortes98/Angular_Wordle.git
+cd Angular_Wordle
+```
 
-## Build
+### 2️⃣ Instalar dependencias
+```sh
+npm install
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### 3️⃣ Ejecutar el servidor de desarrollo
+```sh
+ng serve
+```
+Luego, abre en tu navegador: [http://localhost:4200](http://localhost:4200)
 
-## Running unit tests
+## 🛠 Configuración de JSON Server
+Este proyecto utiliza `json-server` para manejar datos locales. Para instalar y ejecutar el servidor JSON, sigue estos pasos:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### 1️⃣ Instalar `json-server`
+```sh
+npm install -g json-server
+```
 
-## Running end-to-end tests
+### 2️⃣ Ejecutar el servidor JSON
+node server.js
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Esto iniciará el servidor en `http://localhost:3000` y permitirá interactuar con los datos desde la aplicación Angular.
 
-## Further help
+## 📌 Configuración
+Si necesitas cambiar alguna configuración, revisa los archivos en:
+- `src/environments/environment.ts`
+- `src/environments/environment.prod.ts`
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+---
+_Desarrollado por [Xavier Cortes](https://github.com/XavierCortes98)_ 🎮
+
