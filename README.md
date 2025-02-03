@@ -2,6 +2,9 @@
 
 Este es un clon del popular juego **Wordle**, desarrollado con **Angular**. 
 
+  ![image](https://github.com/user-attachments/assets/8fa585a2-5126-40ac-a527-954ea6d482b9)
+
+
 ## 🚀 Características
 - Interfaz interactiva y fácil de usar
 - Implementado en Angular para una experiencia fluida
