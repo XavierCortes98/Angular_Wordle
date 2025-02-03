@@ -38,6 +38,8 @@ Luego, abre en tu navegador: [http://localhost:4200](http://localhost:4200)
 ## 🛠 Configuración de JSON Server
 Este proyecto utiliza `json-server` para manejar datos locales. Para instalar y ejecutar el servidor JSON, sigue estos pasos:
 
+### Dentro de src/json-server
+
 ### 1️⃣ Instalar `json-server`
 ```sh
 npm install -g json-server
