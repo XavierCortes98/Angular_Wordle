@@ -12,7 +12,8 @@ Este es un clon del popular juego **Wordle**, desarrollado con **Angular**.
 ## 🛠 Tecnologías Utilizadas
 - **Angular** - Framework frontend
 - **TypeScript** - Lenguaje principal
-- **CSS** - Estilos personalizados
+- **SCSS** - Estilos personalizados
+- **Express** - Backend 
 
 ## 📦 Instalación
 Sigue estos pasos para instalar y ejecutar el proyecto en tu máquina local:
